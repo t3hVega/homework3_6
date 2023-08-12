@@ -1,6 +1,7 @@
 package com.homework.homework36.controller;
 
 import com.homework.homework36.model.Avatar;
+import com.homework.homework36.model.Faculty;
 import com.homework.homework36.model.Student;
 import com.homework.homework36.service.AvatarService;
 import com.homework.homework36.service.StudentService;
@@ -28,16 +29,13 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequestMapping("/student")
 public class StudentController {
 
-    @Value("${path.to.avatars.folder}")
-    private String avatarsDir;
+
 
     private final StudentService studentService;
-    private final AvatarService avatarService;
 
 
     public StudentController(StudentService studentService, AvatarService avatarService) {
         this.studentService = studentService;
-        this.avatarService = avatarService;
     }
 
     @GetMapping("{id}")
@@ -86,35 +84,9 @@ public class StudentController {
         return ok(Collections.emptyList());
     }
 
-    @PostMapping(value = "/{studentId}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> uploadAvatar(
-            @PathVariable Long studentId,
-            @RequestParam MultipartFile avatar
-    ) throws IOException {
-        avatarService.uploadAvatar(studentId, avatar);
-        return ok().build();
-    }
-
-    @GetMapping(value = "/{studentId}/avatar-from-db")
-    public ResponseEntity<byte[]> downloadAvatar(@PathVariable Long studentId) {
-        Avatar avatar = avatarService.findAvatar(studentId);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType(avatar.getMediaType()));
-        headers.setContentLength(avatar.getData().length);
-        return ResponseEntity.status(HttpStatus.OK).headers(headers).body(avatar.getData());
-    }
-
-    @GetMapping(value = "/{studentId}/avatar-from-file")
-    public void downloadAvatar(@PathVariable Long studentId, HttpServletResponse response) throws IOException{
-        Avatar avatar = avatarService.findAvatar(studentId);
-        Path path = Path.of(avatar.getFilePath());
-        try(InputStream is = Files.newInputStream(path);
-            OutputStream os = response.getOutputStream();) {
-            response.setStatus(200);
-            response.setContentType(avatar.getMediaType());
-            response.setContentLength((int) avatar.getFileSize());
-            is.transferTo(os);
-        }
+    @GetMapping("{id}/faculty")
+    public Faculty findFacultyByStudentId(@PathVariable long id) {
+        return studentService.findFacultyByStudentId(id);
     }
 
     @GetMapping("/count")
@@ -130,11 +102,5 @@ public class StudentController {
     @GetMapping("/last-students")
     public List<Student> getLastStudents() {
         return studentService.lastStudents();
-    }
-
-    @GetMapping("/avatars")
-    public ResponseEntity<List<Avatar>> getAvatars(@RequestParam int pageNum, @RequestParam int pageSize, HttpServletResponse response) throws IOException{
-        List<Avatar> avatars= avatarService.getAvatars(pageNum, pageSize);
-        return ResponseEntity.ok(avatars);
     }
 }

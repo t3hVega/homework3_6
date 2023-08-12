@@ -1,11 +1,9 @@
 package com.homework.homework36.service;
 
-import com.homework.homework36.model.Avatar;
+import com.homework.homework36.model.Faculty;
 import com.homework.homework36.model.Student;
-import com.homework.homework36.repository.AvatarRepository;
 import com.homework.homework36.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,13 +33,15 @@ public class StudentService {
         return studentRepository.findByAge(age);
     }
     public List<Student> findByAgeBetween(Integer min, Integer max) {return studentRepository.findByAgeBetween(min, max);}
+    public Faculty findFacultyByStudentId(long id) {return studentRepository.findById(id)
+            .map(it -> it.getFaculty())
+            .orElse(null);}
     public Integer count() {
         return studentRepository.getStudentCount();
     }
     public Float avgAge() {
         return studentRepository.getStudentAvgAge();
     }
-
     public List<Student> lastStudents() {
         return studentRepository.getLastStudents();
     }
