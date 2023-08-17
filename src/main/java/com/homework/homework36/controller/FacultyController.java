@@ -64,4 +64,14 @@ public class FacultyController {
         return facultyService.findStudentsByFacultyId(id);
     }
 
+    @GetMapping("/name/{name}")
+    public List<Faculty> findFacultiesByName(@PathVariable String name) {
+        return facultyService.getFacultiesByName(name);
+    }
+
+    @GetMapping("/color/{color}")
+    public List<Faculty> findStudentsByName(@PathVariable String color) {
+        return facultyService.getFacultiesByColor(color);
+    }
+
 }

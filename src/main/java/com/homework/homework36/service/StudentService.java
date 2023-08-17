@@ -42,8 +42,13 @@ public class StudentService {
     public Float avgAge() {
         return studentRepository.getStudentAvgAge();
     }
+
     public List<Student> lastStudents() {
         return studentRepository.getLastStudents();
     }
+
+    public List<Student> getStudentsByName(String name) {
+        return studentRepository.getStudentsByName(name);
+    };
 
 }

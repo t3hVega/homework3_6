@@ -38,4 +38,12 @@ public class FacultyService {
                 .orElse(null);
     }
 
+    public List<Faculty> getFacultiesByName(String name) {
+        return facultyRepository.getFacultiesByName(name);
+    };
+
+    public List<Faculty> getFacultiesByColor(String color) {
+        return facultyRepository.getFacultiesByColor(color);
+    };
+
 }

@@ -89,6 +89,11 @@ public class StudentController {
         return studentService.findFacultyByStudentId(id);
     }
 
+    @GetMapping("/name/{name}")
+    public List<Student> findStudentsByName(@PathVariable String name) {
+        return studentService.getStudentsByName(name);
+    }
+
     @GetMapping("/count")
     public Integer getStudentCount() {
         return studentService.count();

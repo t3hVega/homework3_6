@@ -2,14 +2,12 @@ package com.homework.homework36.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "faculties")
 public class Faculty {
 
     @Id
