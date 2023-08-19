@@ -6,6 +6,8 @@ import com.homework.homework36.model.Avatar;
 import com.homework.homework36.model.Student;
 import com.homework.homework36.repository.AvatarRepository;
 import com.homework.homework36.repository.StudentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,7 @@ public class AvatarService {
     private final AvatarRepository avatarRepository;
     private final StudentRepository studentRepository;
     private final AvatarMapper avatarMapper;
+    private final Logger logger = LoggerFactory.getLogger(AvatarService.class);
 
     public AvatarService(AvatarRepository avatarRepository, StudentRepository studentRepository, AvatarMapper avatarMapper) {
         this.avatarRepository = avatarRepository;
@@ -36,6 +39,7 @@ public class AvatarService {
     }
 
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
+        logger.info("Загружаем аватар для студента с id - {}", studentId);
         Student student = studentRepository.findById(studentId).orElseThrow();
         Path path = saveToDisk(student, avatarFile);
         saveToDB(student, path, avatarFile);
@@ -76,12 +80,14 @@ public class AvatarService {
     }
 
     public Avatar findAvatar(long studentId) {
+        logger.info("Ищем аватар студента по его id - {}", studentId);
         return avatarRepository
                 .findByStudentId(studentId)
                 .orElse(new Avatar());
     }
 
     public List<AvatarDTO> getAvatars(int pageNum, int pageSize){
+        logger.info("Выводим {} страницу с {} аватарами", pageNum, pageSize);
         PageRequest pageRequest = PageRequest.of(pageNum - 1, pageSize);
 
         return avatarRepository
