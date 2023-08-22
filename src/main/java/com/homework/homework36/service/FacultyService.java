@@ -8,7 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class FacultyService {
@@ -56,5 +59,19 @@ public class FacultyService {
         logger.info("Ищем факультеты по его цвету - {}", color);
         return facultyRepository.getFacultiesByColor(color);
     };
+
+    public String longestName() {
+        logger.info("Ищем факультет с самым длинным названием");
+        List<Faculty> facultyList = facultyRepository.findAll();
+        return facultyList
+                .stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length)).get();
+    }
+
+    public int calculate() {
+        int sum = Stream.iterate(1, a -> a +1) .limit(1_000_000) .reduce(0, (a, b) -> a + b );
+        return sum;
+    }
 
 }

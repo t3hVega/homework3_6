@@ -100,12 +100,22 @@ public class StudentController {
     }
 
     @GetMapping("/avg-age")
-    public Float getStudentAvgAge() {
+    public Double getStudentAvgAge() {
         return studentService.avgAge();
     }
 
     @GetMapping("/last-students")
     public List<Student> getLastStudents() {
         return studentService.lastStudents();
+    }
+
+    @GetMapping("/a-students")
+    public List<Student> getAStudents() {
+        return studentService.AStudents();
+    }
+
+    @GetMapping("/avg-age-stream")
+    public Double getStudentAvgAgeByStream() {
+        return studentService.avgAgeByStream();
     }
 }

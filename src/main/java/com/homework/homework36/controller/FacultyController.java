@@ -74,4 +74,14 @@ public class FacultyController {
         return facultyService.getFacultiesByColor(color);
     }
 
+    @GetMapping("/longest-name")
+    public String longestNameFaculty() {
+        return facultyService.longestName();
+    }
+
+    @GetMapping("/calculate")
+    public int calculate() {
+        return facultyService.calculate();
+    }
+
 }

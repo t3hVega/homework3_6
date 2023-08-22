@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 public class StudentService {
@@ -53,7 +55,7 @@ public class StudentService {
         logger.info("Считаем всех студентов");
         return studentRepository.getStudentCount();
     }
-    public Float avgAge() {
+    public Double avgAge() {
         logger.info("Считаем средний возраст студентов");
         return studentRepository.getStudentAvgAge();
     }
@@ -68,4 +70,24 @@ public class StudentService {
         return studentRepository.getStudentsByName(name);
     };
 
+    public List<Student> AStudents() {
+        logger.info("Ищем студентов по именам, начинающимся на 'А'");
+        List<Student> studentList = studentRepository.findAll();
+        List<Student> AStudents = studentList
+                .stream()
+                .filter(student -> student.getName().charAt(0) == 'A')
+                .collect(Collectors.toList());
+        return AStudents;
+    }
+
+    public Double avgAgeByStream() {
+        logger.info("Считаем средний возраст студентов через стрим");
+        List<Student> studentList = studentRepository.findAll();
+        double avgAge = studentList
+                .stream()
+                .mapToDouble(s -> s.getAge())
+                .average()
+                .orElse(Double.NaN);;
+        return avgAge;
+    }
 }
