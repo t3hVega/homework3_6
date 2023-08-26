@@ -102,13 +102,11 @@ public class StudentService {
     }
 
     private synchronized void displayNameSync(int i) {
-        synchronized (this) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }
         System.out.println(studentRepository.findAll().get(i).getName());
     }
 

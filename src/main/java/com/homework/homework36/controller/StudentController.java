@@ -128,4 +128,5 @@ public class StudentController {
     public void getStudentNamesStreamSync() {
         studentService.getNamesByStreamSync();
     }
+
 }
