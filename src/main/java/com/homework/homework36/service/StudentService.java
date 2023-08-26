@@ -111,7 +111,7 @@ public class StudentService {
     }
 
     public void getNamesByThread() {
-        logger.info("Ищем имена студентов через стрим");
+        logger.info("Ищем имена студентов через потоки");
         displayName(0);
         displayName(1);
 
@@ -127,7 +127,7 @@ public class StudentService {
     }
 
     public void getNamesByThreadSync() {
-        logger.info("Ищем имена студентов через стрим");
+        logger.info("Ищем имена студентов через синхронизированные потоки");
         displayNameSync(0);
         displayNameSync(1);
 
