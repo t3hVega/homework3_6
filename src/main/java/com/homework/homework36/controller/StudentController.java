@@ -119,14 +119,14 @@ public class StudentController {
         return studentService.avgAgeByStream();
     }
 
-    @GetMapping("/students-names-stream")
+    @GetMapping("/students-names-thread")
     public void getStudentNamesStream() {
-        studentService.getNamesByStream();
+        studentService.getNamesByThread();
     }
 
-    @GetMapping("/students-names-stream-sync")
-    public void getStudentNamesStreamSync() {
-        studentService.getNamesByStreamSync();
+    @GetMapping("/students-names-thread-sync")
+    public void getStudentNamesThreadSync() {
+        studentService.getNamesByThreadSync();
     }
 
 }

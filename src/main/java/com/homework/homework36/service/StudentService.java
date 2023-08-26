@@ -110,7 +110,7 @@ public class StudentService {
         System.out.println(studentRepository.findAll().get(i).getName());
     }
 
-    public void getNamesByStream() {
+    public void getNamesByThread() {
         logger.info("Ищем имена студентов через стрим");
         displayName(0);
         displayName(1);
@@ -126,7 +126,7 @@ public class StudentService {
         }).start();
     }
 
-    public void getNamesByStreamSync() {
+    public void getNamesByThreadSync() {
         logger.info("Ищем имена студентов через стрим");
         displayNameSync(0);
         displayNameSync(1);
