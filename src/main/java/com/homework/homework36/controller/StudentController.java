@@ -118,4 +118,14 @@ public class StudentController {
     public Double getStudentAvgAgeByStream() {
         return studentService.avgAgeByStream();
     }
+
+    @GetMapping("/students-names-stream")
+    public void getStudentNamesStream() {
+        studentService.getNamesByStream();
+    }
+
+    @GetMapping("/students-names-stream-sync")
+    public void getStudentNamesStreamSync() {
+        studentService.getNamesByStreamSync();
+    }
 }

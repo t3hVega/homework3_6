@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
+
 @Service
 public class StudentService {
 
@@ -89,5 +90,57 @@ public class StudentService {
                 .average()
                 .orElse(Double.NaN);;
         return avgAge;
+    }
+
+    private void displayName(int i) {
+        try {
+            Thread.sleep(1000);
+        }   catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(studentRepository.findAll().get(i).getName());
+    }
+
+    private synchronized void displayNameSync(int i) {
+        synchronized (this) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        System.out.println(studentRepository.findAll().get(i).getName());
+    }
+
+    public void getNamesByStream() {
+        logger.info("Ищем имена студентов через стрим");
+        displayName(0);
+        displayName(1);
+
+        new Thread(() -> {
+            displayName(2);
+            displayName(3);
+        }).start();
+
+        new Thread(() -> {
+            displayName(4);
+            displayName(5);
+        }).start();
+    }
+
+    public void getNamesByStreamSync() {
+        logger.info("Ищем имена студентов через стрим");
+        displayNameSync(0);
+        displayNameSync(1);
+
+        new Thread(() -> {
+            displayNameSync(2);
+            displayNameSync(3);
+        }).start();
+
+        new Thread(() -> {
+            displayNameSync(4);
+            displayNameSync(5);
+        }).start();
     }
 }
