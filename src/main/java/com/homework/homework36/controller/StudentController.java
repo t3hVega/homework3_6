@@ -122,11 +122,13 @@ public class StudentController {
     @GetMapping("/students-names-thread")
     public void getStudentNamesStream() {
         studentService.getNamesByThread();
+
     }
 
     @GetMapping("/students-names-thread-sync")
     public void getStudentNamesThreadSync() {
         studentService.getNamesByThreadSync();
+
     }
 
 }
